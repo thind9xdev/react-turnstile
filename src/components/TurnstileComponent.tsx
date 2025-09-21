@@ -2,7 +2,7 @@
 "use client";
 
 import React, { forwardRef, useImperativeHandle } from 'react';
-import useTurnstile, { TurnstileOptions } from '../hooks/useTurnstile';
+import { useTurnstile, TurnstileOptions } from '../hooks';
 
 export interface TurnstileComponentProps extends TurnstileOptions {
   siteKey: string;
