@@ -1,0 +1,46 @@
+{
+  "name": "@thind9xdev/react-turnstile",
+  "version": "1.0.0",
+  "description": "A React hook for Cloudflare Turnstile integration",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "react",
+    "cloudflare",
+    "turnstile",
+    "cloudflare-turnstile",
+    "react-turnstile",
+    "captcha",
+    "hook",
+    "typescript"
+  ],
+  "author": "thind9xdev",
+  "homepage": "https://github.com/thind9xdev/react-turnstile",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thind9xdev/react-turnstile.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thind9xdev/react-turnstile/issues"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.24",
+    "@types/react-dom": "^18.3.7",
+    "typescript": "^5.9.2"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ]
+}

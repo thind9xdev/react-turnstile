@@ -1,0 +1,7 @@
+# Include only necessary files for npm package
+src/
+examples/
+tsconfig.json
+.gitignore
+.git/
+*.log
