@@ -44,6 +44,51 @@ const YourComponent = () => {
 export default YourComponent;
 ```
 
+## Component Usage
+
+You can also use the `TurnstileComponent` for a more React-like component approach:
+
+```tsx
+import React, { useRef } from "react";
+import { TurnstileComponent, TurnstileComponentRef } from "@thind9xdev/react-turnstile";
+
+const YourComponent = () => {
+  const turnstileRef = useRef<TurnstileComponentRef>(null);
+  const siteKey = "YOUR_SITE_KEY";
+
+  const handleSuccess = (token: string) => {
+    console.log("Turnstile success:", token);
+    // Handle the token (send to your API, etc.)
+  };
+
+  const handleError = (error?: string) => {
+    console.error("Turnstile error:", error);
+  };
+
+  const handleReset = () => {
+    turnstileRef.current?.reset();
+  };
+
+  return (
+    <div>
+      <TurnstileComponent
+        ref={turnstileRef}
+        siteKey={siteKey}
+        onSuccess={handleSuccess}
+        onError={handleError}
+        theme="light"
+        size="normal"
+      />
+      <button onClick={handleReset}>
+        Reset Turnstile
+      </button>
+    </div>
+  );
+};
+
+export default YourComponent;
+```
+
 ## Advanced Usage
 
 ```tsx
