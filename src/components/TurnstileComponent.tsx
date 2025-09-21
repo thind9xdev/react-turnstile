@@ -16,7 +16,7 @@ export interface TurnstileComponentRef {
   getResponse: () => string | null;
 }
 
-const TurnstileComponent = forwardRef<TurnstileComponentRef, TurnstileComponentProps>(
+export const TurnstileComponent = forwardRef<TurnstileComponentRef, TurnstileComponentProps>(
   ({ siteKey, className, style, ...options }, ref) => {
     const { ref: turnstileRef, reset, execute, getResponse } = useTurnstile(siteKey, options);
 
@@ -31,5 +31,3 @@ const TurnstileComponent = forwardRef<TurnstileComponentRef, TurnstileComponentP
 );
 
 TurnstileComponent.displayName = 'TurnstileComponent';
-
-export { TurnstileComponent };

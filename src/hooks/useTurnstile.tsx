@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useCallback, useRef } from "react";
 
 export interface TurnstileResponse {
@@ -10,6 +11,7 @@ export interface TurnstileResponse {
 }
 
 export interface TurnstileOptions {
+  onLoad?: () => void;
   onSuccess?: (token: string) => void;
   onError?: (errorCode?: string) => void;
   onExpire?: () => void;
@@ -61,6 +63,7 @@ const useTurnstile = (
     onError: userOnError,
     onExpire: userOnExpire,
     onTimeout: userOnTimeout,
+    onLoad: userOnLoad,
   } = options;
 
   const onSuccess = useCallback((token: string) => {
@@ -116,7 +119,6 @@ const useTurnstile = (
         'timeout-callback': onTimeout,
       };
 
-      // Remove undefined values to avoid issues
       Object.keys(renderOptions).forEach(key => 
         renderOptions[key as keyof typeof renderOptions] === undefined && 
         delete renderOptions[key as keyof typeof renderOptions]
@@ -124,6 +126,8 @@ const useTurnstile = (
 
       const id = window.turnstile.render(containerRef.current, renderOptions);
       setWidgetId(id);
+      // Fire the onLoad callback
+      userOnLoad?.();
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to render Turnstile';
       setError(errorMessage);
@@ -131,11 +135,10 @@ const useTurnstile = (
     }
   }, [
     siteKey, theme, size, language, retry, retryInterval, 
-    refreshExpired, appearance, execution, onSuccess, onError, onExpired, onTimeout
+    refreshExpired, appearance, execution, onSuccess, onError, onExpired, onTimeout, userOnLoad
   ]);
 
   useEffect(() => {
-    // If the widget has already been rendered, do not run the effect again.
     if (widgetId) {
       return;
     }
@@ -143,25 +146,18 @@ const useTurnstile = (
     const scriptId = 'cloudflare-turnstile-script';
     const onloadCallbackName = 'cfTurnstileOnload';
 
-    // Assign the render function to a global callback
     (window as any)[onloadCallbackName] = renderTurnstile;
 
-    // Check if script already exists
     if (document.getElementById(scriptId)) {
-      // If script exists but turnstile is not ready, it might be loading
-      // If turnstile is ready, render it.
       if (window.turnstile) {
         renderTurnstile();
       }
       return;
     }
 
-    // Create and load Turnstile script
     const script = document.createElement('script');
     script.id = scriptId;
-    // Use the onload callback mechanism
     script.src = `https://challenges.cloudflare.com/turnstile/v0/api.js?onload=${onloadCallbackName}`;
-    // IMPORTANT: Do not use async/defer with the onload callback approach
     script.async = false;
     script.defer = false;
 
@@ -173,7 +169,6 @@ const useTurnstile = (
     document.head.appendChild(script);
     scriptRef.current = script;
 
-    // Cleanup function
     return () => {
       if (widgetId && window.turnstile) {
         try {
@@ -182,7 +177,6 @@ const useTurnstile = (
           console.warn('Failed to remove Turnstile widget:', err);
         }
       }
-      // Clean up the global callback
       delete (window as any)[onloadCallbackName];
     };
   }, [renderTurnstile, widgetId]);
