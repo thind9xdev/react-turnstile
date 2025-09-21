@@ -1,7 +1,7 @@
 {
   "name": "@thind9xdev/react-turnstile",
   "version": "1.0.2",
-  "description": "A React hook for Cloudflare Turnstile integration",
+  "description": "A modern React library for Cloudflare Turnstile, offering both a flexible Hook (useTurnstile) and an easy-to-use Component.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -14,10 +14,14 @@
     "react",
     "cloudflare",
     "turnstile",
-    "cloudflare-turnstile",
-    "react-turnstile",
     "captcha",
+    "react-turnstile",
+    "cloudflare-turnstile",
     "hook",
+    "react-component",
+    "security",
+    "challenge",
+    "invisible-captcha",
     "typescript"
   ],
   "author": "thind9xdev",

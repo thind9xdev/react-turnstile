@@ -1,5 +1,9 @@
 # React Cloudflare Turnstile
 
+[![NPM Version](https://img.shields.io/npm/v/@thind9xdev/react-turnstile.svg)](https://www.npmjs.com/package/@thind9xdev/react-turnstile)
+[![NPM Monthly Downloads](https://img.shields.io/npm/dm/@thind9xdev/react-turnstile.svg)](https://www.npmjs.com/package/@thind9xdev/react-turnstile)
+[![License](https://img.shields.io/npm/l/@thind9xdev/react-turnstile.svg)](https://github.com/thind9xdev/react-turnstile/blob/main/LICENSE)
+
 A modern and clean React library for integrating Cloudflare Turnstile.
 
 ## 📦 Installation
